@@ -13,6 +13,7 @@
 <link href="css/analtog.css" rel="stylesheet" type="text/css"> 
 <link href="css/var.css" rel="stylesheet" type="text/css"> 
 <link href="css/console.css" rel="stylesheet" type="text/css"> 
+<link href="css/slider.css" rel="stylesheet" type="text/css"> 
 
 
 <style>
@@ -55,13 +56,27 @@ body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, s
                         <div class = "row-label">Year</div>
                     </div>
                     <div class = "entry-row">
-                        <div class = "gradient1"></div>
-                    </div>
-                    <div class = "entry-row gradlabel">
-                        <div class = "gradient-label left">1900</div>
-                        <div class = "gradient-label">1950</div>
-                        <!-- <div class = "gradient-label">##</div> -->
-                        <div class = "gradient-label right">2000</div>
+                            <div class="range-slider">
+                            <span class = "slider-track"></span>
+                            <span class = "slider-track-R"></span>
+                            <input type="range" name="min_val" class="min-val" min="1840" max="2024" value="1840" oninput="slideMin()">
+                            <input type="range" name="max_val" class="max-val" min="1840" max="2024" value="2024" oninput="slideMax()">
+                            <div class="tooltip min-tooltip"></div>
+                            <div class="tooltip max-tooltip"></div>
+                        </div>
+                        <div class="input-box">
+                            <div class="min-box">
+                                <div class="input-wrap">
+                                    <input type="text" name="min_input" class="input-field min-input" onchange="setMinInput()">
+                                </div>
+                            </div>
+                            <div class = "middle-space"></div>
+                            <div class="max-box">
+                                <div class="input-wrap">
+                                    <input type="text" name="max_input" class="input-field max-input" onchange="setMaxInput()">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class = "entry-row">
                         <div class = "entry-description">
@@ -84,13 +99,31 @@ body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, s
                         <div class = "row-label">FAR (Floor Area Ratio)</div>
                     </div>
                     <div class = "entry-row">
-                        <div class = "gradient2"></div>
-                    </div>
-                    <div class = "entry-row gradlabel">
-                        <div class = "gradient-label left">0</div>
-                        <div class = "gradient-label">5</div>
-                        <!-- <div class = "gradient-label">##</div> -->
-                        <div class = "gradient-label right">10+</div>
+                        <!-- <div class = "gradient2"></div> -->
+
+                        <div class = "entry-row">
+                            <div class="range-slider-1">
+                            <span class = "slider-track-1"></span>
+                            <span class = "slider-track-R-1"></span>
+                            <input type="range" name="min_val" class="min-val-1" min="0" max="20" value="0" oninput="slideMin1()">
+                            <input type="range" name="max_val" class="max-val-1" min="0" max="20" value="20" oninput="slideMax1()">
+                            <div class="tooltip-1 min-tooltip-1"></div>
+                            <div class="tooltip-1 max-tooltip-1"></div>
+                        </div>
+                        <div class="input-box">
+                            <div class="min-box">
+                                <div class="input-wrap">
+                                    <input type="text" name="min_input" class="input-field-1 min-input-1" onchange="setMinInput1()">
+                                </div>
+                            </div>
+                            <div class = "middle-space"></div>
+                            <div class="max-box">
+                                <div class="input-wrap">
+                                    <input type="text" name="max_input" class="input-field-1 max-input-1" onchange="setMaxInput1()">
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class = "entry-row">
                         <div class = "entry-description">
@@ -99,6 +132,7 @@ body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, s
                     </div>
                 </div>
             </div>
+        </div>
 
             <!-- CATEGORY LEGEND ENTRY  -->
             <div class = "legend-entry">
@@ -106,47 +140,48 @@ body { margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, s
                     <div class = "entry-label" id = "label-2">Land Use Designation</div>
                     <div class = "toggle-space">
                         <div class = "toggle" id = "toggle-2" onclick="toggle2()" ></div>
+                        <!-- <div class = "toggle" id = "toggle-2" ></div> -->
                     </div>
                 </div>
                 <div class = "entry-dropdown" id="entry-2">
-                    <div class = "entry-row cat">
-                        <div class = "symbol active" style="background-color: #8f8f19;"></div>
+                    <div class = "entry-row cat active" id="01" onclick="modfilt('01')">
+                        <div class = "symbol active" id="01_symbol" style="background-color: #8f8f19;"></div>
                         <div class = "row-label">Residential - 1-2 Family</div>
                     </div>
-                    <div class = "entry-row cat">
-                        <div class = "symbol active" style="background-color: #c2c21c;"></div>
+                    <div class = "entry-row cat active" id="02" onclick="modfilt('02')">
+                        <div class = "symbol active" id="02_symbol" style="background-color: #c2c21c;"></div>
                         <div class = "row-label">Residential - Multi-Family Walkup</div>
                     </div>
-                    <div class = "entry-row cat">
-                        <div class = "symbol active" style="background-color: #f7f726;"></div>
+                    <div class = "entry-row cat active" id="03" onclick="modfilt('03')">
+                        <div class = "symbol active" id="03_symbol" style="background-color: #f7f726;"></div>
                         <div class = "row-label">Residential - Multi-Family Elevator</div>
                     </div>
-                    <div class = "entry-row cat">
-                        <div class = "symbol active" style="background-color: #d69a2a;"></div>
+                    <div class = "entry-row cat active" id="04" onclick="modfilt('04')">
+                        <div class = "symbol active" id="04_symbol" style="background-color: #d69a2a;"></div>
                         <div class = "row-label">Mixed Use</div>
                     </div>
-                    <div class = "entry-row cat">
-                        <div class = "symbol active" style="background-color: #d84f4c;"></div>
+                    <div class = "entry-row cat active" id="05" onclick="modfilt('05')">
+                        <div class = "symbol active" id="05_symbol" style="background-color: #d84f4c;"></div>
                         <div class = "row-label">Commercial</div>
                     </div>
-                    <div class = "entry-row cat">
-                        <div class = "symbol active" style="background-color: #9d64b2;"></div>
+                    <div class = "entry-row cat active" id="06" onclick="modfilt('06')">
+                        <div class = "symbol active" id="06_symbol" style="background-color: #9d64b2;"></div>
                         <div class = "row-label">Industrial / Utility</div>
                     </div>
-                    <div class = "entry-row cat">
-                        <div class = "symbol active" style="background-color: #697ef0;"></div>
+                    <div class = "entry-row cat active" id="08" onclick="modfilt('08')">
+                        <div class = "symbol active" id="08_symbol" style="background-color: #697ef0;"></div>
                         <div class = "row-label">Institutional</div>
                     </div>
-                    <div class = "entry-row cat">
-                        <div class = "symbol active" style="background-color: rgba(68,138,101,0.45);"></div>
+                    <div class = "entry-row cat active" id="09" onclick="modfilt('09')">
+                        <div class = "symbol active" id="09_symbol" style="background-color: rgba(68,138,101,0.45);"></div>
                         <div class = "row-label">Recreation / Outdoor Space</div>
                     </div>
-                    <div class = "entry-row cat">
-                        <div class = "symbol active" style="background-color: #b5b5b5;"></div>
+                    <div class = "entry-row cat active" id="10" onclick="modfilt('10')">
+                        <div class = "symbol active" id="10_symbol" style="background-color: #b5b5b5;"></div>
                         <div class = "row-label">Parking</div>
                     </div>
-                    <div class = "entry-row cat">
-                        <div class = "symbol active" style="background-color: #1c1c1c;"></div>
+                    <div class = "entry-row cat active" id="11" onclick="modfilt('11')">
+                        <div class = "symbol active" id="11_symbol" style="background-color: #1c1c1c;"></div>
                         <div class = "row-label">Vacant</div>
                     </div>
                     <div class = "entry-row">

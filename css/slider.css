@@ -79,3 +79,68 @@ input[type="range"]::-webkit-slider-thumb {
 .max-input {
     text-align: right;
 }
+
+.range-slider-1 {
+    position: relative;
+    width: 100%;
+    height: 18px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    background: linear-gradient(to right,#0b5c5c, #2dd668, #2efc1c);
+}
+
+.slider-track-1 {
+    height: 100%;
+    position: absolute;
+    background-color: var(--bg_color);
+    opacity: 0.9;
+}
+
+.slider-track-R-1 {
+    height: 100%;
+    position: absolute;
+    background-color: var(--bg_color);
+    opacity: 0.9;
+}
+
+/* slider appearance */
+.range-slider-1 input {
+    position: absolute;
+    width: 100%;
+    background: none;
+    pointer-events: none;
+    top: 50%;
+    transform: translateY(-50%);
+    appearance: none;
+    color: red; 
+}
+
+/* slider appearance */
+input[type="range"]::-webkit-slider-thumb {
+    height: 22px;
+    width: 5px;
+    border-radius: 2px;
+    /* border: 3px solid #FFF; */
+    background: var(--prim_color);
+    pointer-events: auto;
+    appearance: none;
+    cursor: pointer;
+    box-shadow: 0 .125rem .5625rem -0.125rem rgba(0, 0, 0, .25);
+}
+
+.input-box-1 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-field-1 {
+    width: 60px;
+    background-color: var(--bg_color);
+    color: var(--prim_color);
+    font-size: 16px;
+    border: 0;
+}
+
+.max-input-1 {
+    text-align: right;
+}

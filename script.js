@@ -46,7 +46,7 @@ fill_styling = [
         'rgba(0,0,0,0)']
 ]
 
-const prim_style_layer = 'BKSmall_Pluto_4326-ace235'
+const prim_style_layer = 'BKSmall_Pluto_4326-bq4u8i'
 
 
 //SYMBOLOGY TOGGLE - IN LEGEND ---------------------------------------------------------------
@@ -67,51 +67,60 @@ function setclasses(intlist){
 let viz_type = 3; //set this to list length of fill_styling (or any integer not in range list length)
 
 function toggle0() {
-    let viz_status = map.getLayoutProperty('A-PrimStyle', 'visibility');
+    // let viz_status = map.getLayoutProperty('A-PrimStyle', 'visibility');
 
-    if ((viz_type != 0) || (viz_type == 0 && viz_status === "none")){
-        map.setLayoutProperty('A-PrimStyle', 'visibility','visible');
-        map.setPaintProperty('A-PrimStyle', 'fill-color', fill_styling[0]);
-        viz_type = 0;
-    }
-    else {
-        map.setLayoutProperty('A-PrimStyle', 'visibility', 'none');
-        viz_type = 3;
-    }
+    // if ((viz_type != 0) || (viz_type == 0 && viz_status === "none")){
+    //     map.setLayoutProperty('A-PrimStyle', 'visibility','visible');
+    //     map.setPaintProperty('A-PrimStyle', 'fill-color', fill_styling[0]);
+    //     viz_type = 0;
+    // }
+    // else {
+    //     map.setLayoutProperty('A-PrimStyle', 'visibility', 'none');
+    //     viz_type = 3;
+    // }
     
-    setclasses([0,1,2])
+    // setclasses([0,1,2])
+    document.getElementById("entry-0").classList.toggle("active");
+    document.getElementById("toggle-0").classList.toggle("active");
+    document.getElementById("label-0").classList.toggle("active");
 }
 
 function toggle1() {
-    let viz_status = map.getLayoutProperty('A-PrimStyle', 'visibility');
+    // let viz_status = map.getLayoutProperty('A-PrimStyle', 'visibility');
 
-    if ((viz_type != 1) || (viz_type == 1 && viz_status === "none")){
-        map.setLayoutProperty('A-PrimStyle', 'visibility','visible');
-        map.setPaintProperty('A-PrimStyle', 'fill-color', fill_styling[1])
-        viz_type = 1;
-    }
-    else {
-        map.setLayoutProperty('A-PrimStyle', 'visibility', 'none');
-        viz_type = 3;
-    }
+    // if ((viz_type != 1) || (viz_type == 1 && viz_status === "none")){
+    //     map.setLayoutProperty('A-PrimStyle', 'visibility','visible');
+    //     map.setPaintProperty('A-PrimStyle', 'fill-color', fill_styling[1])
+    //     viz_type = 1;
+    // }
+    // else {
+    //     map.setLayoutProperty('A-PrimStyle', 'visibility', 'none');
+    //     viz_type = 3;
+    // }
 
-    setclasses([1,0,2])
+    // setclasses([1,0,2])
+    document.getElementById("entry-1").classList.toggle("active");
+    document.getElementById("toggle-1").classList.toggle("active");
+    document.getElementById("label-1").classList.toggle("active");
 }
 
 function toggle2() {
-    let viz_status = map.getLayoutProperty('A-PrimStyle', 'visibility');
+    // let viz_status = map.getLayoutProperty('A-PrimStyle', 'visibility');
 
-    if ((viz_type != 2) || (viz_type == 2 && viz_status === "none")){
-        map.setLayoutProperty('A-PrimStyle', 'visibility','visible');
-        map.setPaintProperty('A-PrimStyle', 'fill-color', fill_styling[2])
-        viz_type = 2;
-    }
-    else {
-        map.setLayoutProperty('A-PrimStyle', 'visibility', 'none');
-        viz_type = 3;
-    }
+    // if ((viz_type != 2) || (viz_type == 2 && viz_status === "none")){
+    //     map.setLayoutProperty('A-PrimStyle', 'visibility','visible');
+    //     map.setPaintProperty('A-PrimStyle', 'fill-color', fill_styling[2])
+    //     viz_type = 2;
+    // }
+    // else {
+    //     map.setLayoutProperty('A-PrimStyle', 'visibility', 'none');
+    //     viz_type = 3;
+    // }
 
-    setclasses([2,0,1])
+    // setclasses([2,0,1])
+    document.getElementById("entry-2").classList.toggle("active");
+    document.getElementById("toggle-2").classList.toggle("active");
+    document.getElementById("label-2").classList.toggle("active");
 };
 
 function toggle_sub(){
@@ -154,7 +163,7 @@ map.on('load', () => {
 
     map.addSource('source-A', {
         'type': 'vector',
-        'url': "mapbox://ptrszkwcz.2ogimsca",
+        'url': "mapbox://ptrszkwcz.an9j3lgx",
         'promoteId':'UniqueID' // Because mapbox fucks up when assigning IDs, make own IDs in QGIS and then set here!!!
     });
 
@@ -164,11 +173,11 @@ map.on('load', () => {
     'source': 'source-A', 
     'source-layer':prim_style_layer,
     'layout': {
-        'visibility': 'none'
+        // 'visibility': 'none'
     },
     'paint': {
         'fill-opacity': 0.7,
-        'fill-color': fill_styling[0]
+        'fill-color': '#1c84e6',
         },
     });
 
@@ -522,3 +531,252 @@ map.on('load', () => {
     });
 
 });
+
+
+// FILTER WITH SLIDER ---------------------------------------------------------------
+
+window.onload = function () {
+    slideMin();
+    slideMax();
+    slideMin1();
+    slideMax1();
+};
+  
+const minGap = 5;
+const minVal = document.querySelector(".min-val");
+const maxVal = document.querySelector(".max-val");
+const priceInputMin = document.querySelector(".min-input");
+const priceInputMax = document.querySelector(".max-input");
+const minTooltip = document.querySelector(".min-tooltip");
+const maxTooltip = document.querySelector(".max-tooltip");
+const range = document.querySelector(".slider-track");
+const rangeR = document.querySelector(".slider-track-R");
+const sliderMinValue = parseInt(minVal.min);
+const sliderMaxValue = parseInt(maxVal.max);
+  
+function slideMin() {
+    let gap = parseInt(maxVal.value) - parseInt(minVal.value);
+    if (gap <= minGap) {
+        minVal.value = parseInt(maxVal.value) - minGap;
+    }
+    // minTooltip.innerHTML = "$" + minVal.value;
+    priceInputMin.value = minVal.value;
+    setArea();
+    setAreaR();
+    if (filter_cats.length > 0){
+        map.setFilter('A-PrimStyle', ["all",
+            ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
+            ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
+            ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
+            ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)],
+            ['match', ['get', 'LandUse'], filter_cats,false,true]]
+            );
+    } else {
+        map.setFilter('A-PrimStyle', ["all",
+            ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
+            ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
+            ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
+            ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)]]
+            );
+    }
+}
+  
+function slideMax() {
+    let gap = parseInt(maxVal.value) - parseInt(minVal.value);
+    if (gap <= minGap) {
+        maxVal.value = parseInt(minVal.value) - minGap;
+    }
+    // maxTooltip.innerHTML = "$" + maxVal.value;
+    priceInputMax.value = maxVal.value;
+    setArea();
+    setAreaR();
+    if (filter_cats.length > 0){
+        map.setFilter('A-PrimStyle', ["all",
+            ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
+            ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
+            ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
+            ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)],
+            ['match', ['get', 'LandUse'], filter_cats,false,true]]
+            );
+    } else {
+        map.setFilter('A-PrimStyle', ["all",
+            ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
+            ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
+            ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
+            ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)]]
+            );
+    }
+}
+
+function setArea() {
+    range.style.left = 0+"%";
+    minTooltip.style.left = 0+"%";
+    range.style.right = 100-((minVal.value-minVal.min)/(sliderMaxValue-minVal.min)) * 100 + "%";
+    minTooltip.style.right = 100-((minVal.value-minVal.min)/(sliderMaxValue-minVal.min)) * 100 + "%";  
+}
+
+function setAreaR() {
+    rangeR.style.left = (maxVal.value-maxVal.min)/(sliderMaxValue-maxVal.min) * 100 + "%";
+    maxTooltip.style.left = (maxVal.value-maxVal.min)/(sliderMaxValue-maxVal.min) * 100 + "%";
+    rangeR.style.right = 0 + "%";
+    maxTooltip.style.right =  0 + "%";  
+}
+  
+function setMinInput() {
+    let minPrice = parseInt(priceInputMin.value);
+    if(minPrice < sliderMinValue) {
+        priceInputMin.value = sliderMinValue;
+    }
+    minVal.value = priceInputMin.value;
+    slideMin();
+}
+  
+function setMaxInput() {
+    let maxPrice = parseInt(priceInputMax.value);
+    if(maxPrice > sliderMaxValue) {
+        priceInputMax.value = sliderMaxValue;
+    }
+    maxVal.value = priceInputMax.value;
+    slideMax();
+}
+  
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  
+const minGap1 = 0;
+const minVal1 = document.querySelector(".min-val-1");
+const maxVal1 = document.querySelector(".max-val-1");
+const priceInputMin1 = document.querySelector(".min-input-1");
+const priceInputMax1 = document.querySelector(".max-input-1");
+const minTooltip1 = document.querySelector(".min-tooltip-1");
+const maxTooltip1 = document.querySelector(".max-tooltip-1");
+const range1 = document.querySelector(".slider-track-1");
+const rangeR1 = document.querySelector(".slider-track-R-1");
+const sliderMinValue1 = parseInt(minVal1.min);
+const sliderMaxValue1 = parseInt(maxVal1.max);
+  
+function slideMin1() {
+    let gap = parseInt(maxVal1.value) - parseInt(minVal1.value);
+    if (gap <= minGap1) {
+        minVal1.value = parseInt(maxVal1.value) - minGap1;
+    }
+    // minTooltip.innerHTML = "$" + minVal.value;
+    priceInputMin1.value = minVal1.value;
+    setArea1();
+    setAreaR1();
+    if (filter_cats.length > 0){
+        map.setFilter('A-PrimStyle', ["all",
+            ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
+            ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
+            ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
+            ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)],
+            ['match', ['get', 'LandUse'], filter_cats,false,true]]
+            );
+    } else {
+        map.setFilter('A-PrimStyle', ["all",
+            ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
+            ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
+            ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
+            ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)]]
+            );
+    }
+}
+  
+function slideMax1() {
+    let gap = parseInt(maxVal1.value) - parseInt(minVal1.value);
+    if (gap <= minGap1) {
+        maxVal1.value = parseInt(minVal1.value) - minGap1;
+    }
+    // maxTooltip.innerHTML = "$" + maxVal.value;
+    priceInputMax1.value = maxVal1.value;
+    setArea1();
+    setAreaR1();
+    if (filter_cats.length > 0){
+        map.setFilter('A-PrimStyle', ["all",
+            ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
+            ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
+            ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
+            ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)],
+            ['match', ['get', 'LandUse'], filter_cats,false,true]]
+            );
+    } else {
+        map.setFilter('A-PrimStyle', ["all",
+            ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
+            ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
+            ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
+            ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)]]
+            );
+    }
+}
+
+function setArea1() {
+    range1.style.left = 0+"%";
+    minTooltip1.style.left = 0+"%";
+    range1.style.right = 100-((minVal1.value-minVal1.min)/(sliderMaxValue1-minVal1.min)) * 100 + "%";
+    minTooltip1.style.right = 100-((minVal1.value-minVal1.min)/(sliderMaxValue1-minVal1.min)) * 100 + "%";  
+}
+
+function setAreaR1() {
+    rangeR1.style.left = (maxVal1.value-maxVal1.min)/(sliderMaxValue1-maxVal1.min) * 100 + "%";
+    maxTooltip1.style.left = (maxVal1.value-maxVal1.min)/(sliderMaxValue1-maxVal1.min) * 100 + "%";
+    rangeR1.style.right = 0 + "%";
+    maxTooltip1.style.right =  0 + "%";  
+}
+  
+function setMinInput1() {
+    let minPrice1 = parseInt(priceInputMin1.value);
+    if(minPrice1 < sliderMinValue1) {
+        priceInputMin1.value = sliderMinValue1;
+    }
+    minVal1.value = priceInputMin1.value;
+    slideMin1();
+}
+  
+function setMaxInput1() {
+    let maxPrice1 = parseInt(priceInputMax1.value);
+    if(maxPrice1 > sliderMaxValue1) {
+        priceInputMax1.value = sliderMaxValue1;
+    }
+    maxVal1.value = priceInputMax1.value;
+    slideMax1();
+}
+
+// FILTER WITH CLICK ---------------------------------------------------------------
+
+let filter_cats = []
+
+function modfilt(filter_select){
+    if (filter_cats.includes(filter_select)){
+        const del_index = filter_cats.indexOf(filter_select);
+        const new_filter = filter_cats.splice(del_index, 1);
+
+        document.getElementById(filter_select).classList.add("active");
+        let ID_symbol = filter_select.concat("_symbol")
+        document.getElementById(ID_symbol).classList.add("active");
+    }  
+    else {
+        const new_filter = filter_cats.push(filter_select)
+
+        document.getElementById(filter_select).classList.remove("active");
+        let ID_symbol = filter_select.concat("_symbol")
+        document.getElementById(ID_symbol).classList.remove("active");
+    }
+    if (filter_cats.length > 0){
+        map.setFilter('A-PrimStyle', ["all",
+        ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
+        ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
+        ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
+        ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)],
+        ['match', ['get', 'LandUse'], filter_cats,false,true]]
+        );
+        // map.setFilter('A-PrimStyle', ['match', ['get', 'LandUse'], filter_cats,false,true]);
+    }
+    else{
+        map.setFilter('A-PrimStyle', ["all",
+        ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
+        ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
+        ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
+        ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)]]
+        );
+        // map.setFilter('A-PrimStyle', null)
+    }
+}
