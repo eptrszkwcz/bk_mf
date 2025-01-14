@@ -4,7 +4,6 @@ var mystyle = window.getComputedStyle(cssclass);
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicHRyc3prd2N6IiwiYSI6ImNscGkxOHVvbjA2eW8ybG80NDJ3ajBtMWwifQ.L2qe-aJO35nls3sfd0WKPA';
 
-
 //ASSIGN CONSTANTS ---------------------------------------------------------------
 
 const filterGroup = document.getElementById('filter-group');
@@ -46,7 +45,7 @@ fill_styling = [
         'rgba(0,0,0,0)']
 ]
 
-const prim_style_layer = 'BKSmall_Pluto_4326-bq4u8i'
+const prim_style_layer = 'BKSmall_Pluto_4326-1daill'
 
 
 //SYMBOLOGY TOGGLE - IN LEGEND ---------------------------------------------------------------
@@ -163,7 +162,7 @@ map.on('load', () => {
 
     map.addSource('source-A', {
         'type': 'vector',
-        'url': "mapbox://ptrszkwcz.an9j3lgx",
+        'url': "mapbox://ptrszkwcz.901ppt2g",
         'promoteId':'UniqueID' // Because mapbox fucks up when assigning IDs, make own IDs in QGIS and then set here!!!
     });
 
@@ -177,7 +176,9 @@ map.on('load', () => {
     },
     'paint': {
         'fill-opacity': 0.7,
-        'fill-color': '#1c84e6',
+        // 'fill-color': '#1c84e6',
+        'fill-color': '#b7d1e8',
+        // 'fill-color': '#b4c2cf',
         },
     });
 
@@ -567,7 +568,7 @@ function slideMin() {
         map.setFilter('A-PrimStyle', ["all",
             ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
             ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
-            ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
+            ['>=', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
             ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)],
             ['match', ['get', 'LandUse'], filter_cats,false,true]]
             );
@@ -575,7 +576,7 @@ function slideMin() {
         map.setFilter('A-PrimStyle', ["all",
             ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
             ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
-            ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
+            ['>=', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
             ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)]]
             );
     }
@@ -594,7 +595,7 @@ function slideMax() {
         map.setFilter('A-PrimStyle', ["all",
             ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
             ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
-            ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
+            ['>=', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
             ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)],
             ['match', ['get', 'LandUse'], filter_cats,false,true]]
             );
@@ -602,7 +603,7 @@ function slideMax() {
         map.setFilter('A-PrimStyle', ["all",
             ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
             ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
-            ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
+            ['>=', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
             ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)]]
             );
     }
@@ -667,16 +668,16 @@ function slideMin1() {
         map.setFilter('A-PrimStyle', ["all",
             ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
             ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
-            ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
-            ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)],
+            ['>=', ['number', ['get', 'BuiltFAR']], parseFloat(minVal1.value)],
+            ['<', ['number', ['get', 'BuiltFAR']], parseFloat(maxVal1.value)],
             ['match', ['get', 'LandUse'], filter_cats,false,true]]
             );
     } else {
         map.setFilter('A-PrimStyle', ["all",
             ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
             ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
-            ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
-            ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)]]
+            ['>=', ['number', ['get', 'BuiltFAR']], parseFloat(minVal1.value)],
+            ['<', ['number', ['get', 'BuiltFAR']], parseFloat(maxVal1.value)]]
             );
     }
 }
@@ -694,16 +695,16 @@ function slideMax1() {
         map.setFilter('A-PrimStyle', ["all",
             ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
             ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
-            ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
-            ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)],
+            ['>=', ['number', ['get', 'BuiltFAR']], parseFloat(minVal1.value)],
+            ['<', ['number', ['get', 'BuiltFAR']], parseFloat(maxVal1.value)],
             ['match', ['get', 'LandUse'], filter_cats,false,true]]
             );
     } else {
         map.setFilter('A-PrimStyle', ["all",
             ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
             ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
-            ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
-            ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)]]
+            ['>=', ['number', ['get', 'BuiltFAR']], parseFloat(minVal1.value)],
+            ['<', ['number', ['get', 'BuiltFAR']], parseFloat(maxVal1.value)]]
             );
     }
 }
@@ -764,8 +765,8 @@ function modfilt(filter_select){
         map.setFilter('A-PrimStyle', ["all",
         ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
         ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
-        ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
-        ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)],
+        ['>=', ['number', ['get', 'BuiltFAR']], parseFloat(minVal1.value)],
+        ['<', ['number', ['get', 'BuiltFAR']], parseFloat(maxVal1.value)],
         ['match', ['get', 'LandUse'], filter_cats,false,true]]
         );
         // map.setFilter('A-PrimStyle', ['match', ['get', 'LandUse'], filter_cats,false,true]);
@@ -774,9 +775,54 @@ function modfilt(filter_select){
         map.setFilter('A-PrimStyle', ["all",
         ['>', ['number', ['get', 'YearBuilt']], parseInt(minVal.value)],
         ['<', ['number', ['get', 'YearBuilt']], parseInt(maxVal.value)],
-        ['>', ['number', ['get', 'BuiltFAR']], parseInt(minVal1.value)],
-        ['<', ['number', ['get', 'BuiltFAR']], parseInt(maxVal1.value)]]
+        ['>=', ['number', ['get', 'BuiltFAR']], parseFloat(minVal1.value)],
+        ['<', ['number', ['get', 'BuiltFAR']], parseFloat(maxVal1.value)]]
         );
         // map.setFilter('A-PrimStyle', null)
     }
 }
+
+var style = window.getComputedStyle(document.body)
+// console.log( style.getPropertyValue('--bg_color') )
+
+window.addEventListener('load', () => {
+    const searchBox = new MapboxSearchBox();
+    searchBox.accessToken = mapboxgl.accessToken;
+    searchBox.options = {
+        types: 'address,poi',
+        proximity: [-73.99209, 40.68933],
+    };
+    searchBox.theme = {
+        variables: {
+            colorBackground: style.getPropertyValue('--bg_color'),
+            colorText: style.getPropertyValue('--sec_color'),
+            // border: '#00b330',
+            color:'#00b330',
+            // colorText:  '#00b330',
+            colorBackdrop: style.getPropertyValue('--prim_color'), 
+            // colorBackgroundHover: getPropertyValue('--bghov_color'),
+            colorBackgroundHover: 'rgba(100, 100, 100, 0.9)',
+            // colorPrimary: '#00b330',
+            // colorBackgroundActive: '#00b330',      
+        }
+    }
+    searchBox.marker = true;
+    searchBox.mapboxgl = mapboxgl;
+    map.addControl(searchBox);
+});
+
+// const theme = {
+//     variables: {
+//       fontFamily: 'Avenir, sans-serif',
+//       unit: '14px',
+//       padding: '0.5em',
+//       borderRadius: '0',
+//       boxShadow: '0 0 0 1px silver',
+//     //   colorBackground: 'red',
+//       colorBackground: '#32a852',
+//       colorBackgroundActive: '#32a852',
+//       colorText: '#32a852'
+//     }
+//   };
+  
+//   autofill({ theme });
