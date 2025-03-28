@@ -2,7 +2,7 @@
 var cssclass = document.querySelector(":root");
 var mystyle = window.getComputedStyle(cssclass);
 
-mapboxgl.accessToken = 'pk.eyJ1IjoicHRyc3prd2N6IiwiYSI6ImNscGkxOHVvbjA2eW8ybG80NDJ3ajBtMWwifQ.L2qe-aJO35nls3sfd0WKPA';
+mapboxgl.accessToken = 'pk.eyJ1IjoicHRyc3prd2N6IiwiYSI6ImNtOHMwbmJvdTA4ZnIya290M2hlbmswb2YifQ.qQZEM9FzU2J-_z0vYoSBeg';
 
 //ASSIGN CONSTANTS ---------------------------------------------------------------
 
